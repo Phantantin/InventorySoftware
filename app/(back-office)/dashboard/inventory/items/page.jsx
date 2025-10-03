@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function Dashborad() {
+export default function Items() {
   return (
     <div>
-      <h2>Dashborad</h2>
+      <h2>Items</h2>
     </div>
   )
 }

@@ -47,7 +47,7 @@ export default function Header() {
         {/*  */}
         <div className="flex gap-3">
           <button className="flex items-center">
-            <span>Garant</span>
+            <span>TN</span>
             <ChevronDown className="w-4 h-4" />
           </button>
 
