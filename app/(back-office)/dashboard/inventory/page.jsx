@@ -1,44 +1,53 @@
 "use client"
 import FixedHeader from "@/components/dashboard/FixedHeader";
 import OptionCard from "@/components/dashboard/OptionCard";
-import { Boxes, Component, ScrollText, Shirt } from "lucide-react";
+import { Box, Boxes, Component, ScrollText, Shirt } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
 export default function Inventory() {
   
   const optionCards =[
-    {
-      title: "Item Groups",
-      description: "Create multiple variants of the same item using Item Groups",
-      link: "/new",
-      linkTitle: "New Item Groups",
-      enabled: true,
-      icon: Shirt
-    },
+
     {
       title: "Items",
       description: "Create standalone items and service that you buy and sell",
-      link: "/new",
+      link: "/dashboard/inventory/items/new",
       linkTitle: "New Item",
       enabled: false,
+      icon: Shirt
+    },
+    {
+      title: "Categories",
+      description: "Bundle different items together and sell them as kits",
+      link: "/dashboard/inventory/categories/new",
+      linkTitle: "New Category",
+      enabled: true,
       icon: Boxes
     },
     {
-      title: "Composite Items",
-      description: "Bundle different items together and sell them as kits",
-      link: "/new",
-      linkTitle: "New Composite Item",
-      enabled: true,
-      icon: Component
-    },
-    {
-      title: "Price Lists",
+      title: "Brands",
       description: "Tweak your item prices for specific contacts or transaction",
-      link: "/new",
-      linkTitle: "Enable Now",
+      link: "/dashboard/inventory/brands/new",
+      linkTitle: "New Brand",
       enabled: true,
       icon: ScrollText
+    },
+    {
+      title: "Warehouse",
+      description: "Tweak your item prices for specific contacts or transaction",
+      link: "/dashboard/inventory/warehouse/new",
+      linkTitle: "New Warehouse",
+      enabled: true,
+      icon: ScrollText
+    },
+    {
+      title: "Units",
+      description: "Tweak your item prices for specific contacts or transaction",
+      link: "/dashboard/inventory/units/new",
+      linkTitle: "New Unit",
+      enabled: true,
+      icon: Component
     }
   ]
   return (
