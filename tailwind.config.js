@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+import { withUt } from "uploadthing/tw";
+
+export default withUt({
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -12,4 +14,5 @@ module.exports = {
     require("tailwindcss-animate"),
     require('@tailwindcss/forms')
   ],
-}
+});
+

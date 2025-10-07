@@ -42,7 +42,7 @@ export default function SideBar() {
     },
     {
       title: "Inventory Adjustment",
-      href: "#",
+      href: "/dashboard/inventory",
     },
   ];
 
