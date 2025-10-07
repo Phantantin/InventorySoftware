@@ -14,7 +14,7 @@ export default function Inventory() {
       description: "Create standalone items and service that you buy and sell",
       link: "/dashboard/inventory/items/new",
       linkTitle: "New Item",
-      enabled: false,
+      enabled: true,
       icon: Shirt
     },
     {
@@ -46,6 +46,14 @@ export default function Inventory() {
       description: "Tweak your item prices for specific contacts or transaction",
       link: "/dashboard/inventory/units/new",
       linkTitle: "New Unit",
+      enabled: true,
+      icon: Component
+    },
+    {
+      title: "Inventory Adjustment",
+      description: "Transfer stock from the Main Warehouse",
+      link: "/dashboard/inventory/adjustments/new",
+      linkTitle: "New Adjustment",
       enabled: true,
       icon: Component
     }
