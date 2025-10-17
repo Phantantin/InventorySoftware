@@ -1,283 +1,38 @@
-"use client";
+import CreateItemForm from "@/components/dashboard/CreateItemForm";
 import FormHeader from "@/components/dashboard/FormHeader";
-import ImageInput from "@/components/FormInputs/ImageInput";
-import SelectInput from "@/components/FormInputs/SelectInput";
-import SubmitButton from "@/components/FormInputs/SubmitButton";
-import TextareaInput from "@/components/FormInputs/TextareaInput";
-import TextInput from "@/components/FormInputs/TextInput";
-import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
-import { data } from "autoprefixer";
-import { Pencil, Plus, X } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { getData } from "@/lib/getData";
+
 // import "@uploadthing/react/styles.css";
 
-export default function NewItem() {
-  const [imageUrl, setImageUrl] = useState("");
-  const categories = [
-    {
-      label: "Electronic",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Close",
-      value: "dshgdhsfdshas",
-    },
-  ];
+export default async function NewItem() {
+  // Sequencial Fetching => Waterfall
+  const categoriesData = getData("categories");
+  const unitsData = getData("units");
+  const brandsData = getData("brands");
+  const warehousesData = getData("warehouse");
+  const suppliersData = getData("suppliers");
 
-  const units = [
-    {
-      label: "Kg",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Pcs",
-      value: "dshgdhsfdshas",
-    },
-  ];
+  // Parallel Data Fetching
+  const [categories, units, brands, warehouses, suppliers] = await Promise.all([
+    categoriesData,
+    unitsData,
+    brandsData,
+    warehousesData,
+    suppliersData
+  ]);
 
-  const brands = [
-    {
-      label: "HP",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Dell",
-      value: "dshgdhsfdshas",
-    },
-  ];
-
-  const warehouse = [
-    {
-      label: "Warehouse A",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Warehouse B",
-      value: "dshgdhsfdshas",
-    },
-    {
-      label: "Warehouse C",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Warehouse D",
-      value: "dshgdhsfdshas",
-    },
-  ];
-
-  const supplies = [
-    {
-      label: "Supplies A",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Supplies B",
-      value: "dshgdhsfdshas",
-    },
-    {
-      label: "Supplies C",
-      value: "maindjfsjhfj",
-    },
-    {
-      label: "Supplies D",
-      value: "dshgdhsfdshas",
-    },
-  ];
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  const [loading, setLoading] = useState(false);
-
-  async function onSubmit(data) {
-    data.imageUrl = imageUrl;
-    console.log(data);
-
-    setLoading(true);
-    const baseUrl = "http://localhost:3000";
-    try {
-      const response = await fetch(`${baseUrl}/api/items`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (response.ok) {
-        console.log(response);
-        setLoading(false);
-        reset();
-      }
-      reset();
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    }
-  }
   return (
     <div>
       {/* Header */}
       <FormHeader title="New Item" href="/dashboard/inventory" />
       {/* Form */}
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-4xl p-4 bg-white border border-gray-200 rounded-lg shadow-sm sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 mx-auto my-2"
-      >
-        <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
-          <TextInput
-            label="Item Title"
-            name="title"
-            register={register}
-            errors={errors}
-            className="w-full"
-          />
-          <SelectInput
-            name="categoryId"
-            label="Select the Item Category"
-            register={register}
-            className="w-full"
-            options={categories}
-          />
-
-          <TextInput
-            label="Item SKU"
-            name="sku"
-            register={register}
-            errors={errors}
-            className="w-full"
-          />
-
-          <TextInput
-            label="Item Barcode"
-            name="barcode"
-            register={register}
-            errors={errors}
-            // isRequired ="false"
-            className="w-full"
-          />
-
-          <TextInput
-            label="Item Quantity"
-            name="qty"
-            register={register}
-            errors={errors}
-            className="w-full"
-          />
-
-          <SelectInput
-            name="unitId"
-            label="Select the Item Unit"
-            register={register}
-            className="w-full"
-            options={units}
-          />
-
-          <SelectInput
-            name="brandId"
-            label="Select the Item Brand"
-            register={register}
-            className="w-full"
-            options={brands}
-          />
-
-          <TextInput
-            label="Buying Price"
-            name="buyingPrice"
-            register={register}
-            errors={errors}
-            type="number"
-            className="w-full"
-          />
-
-          <TextInput
-            label="Selling Price"
-            name="sellingPrice"
-            register={register}
-            errors={errors}
-            type="number"
-            className="w-full"
-          />
-
-          <SelectInput
-            name="supplierId"
-            label="Select the Item Supplies"
-            register={register}
-            className="w-full"
-            options={supplies}
-          />
-
-          <TextInput
-            label="Re-Order Point"
-            name="reOrderPoint"
-            register={register}
-            errors={errors}
-            type="number"
-            className="w-full"
-          />
-
-          <SelectInput
-            name="warehouseId"
-            label="Select the Item Warehouse"
-            register={register}
-            className="w-full"
-            options={warehouse}
-          />
-
-          <TextInput
-            label="Item Weight in Kgs"
-            name="weight"
-            register={register}
-            errors={errors}
-            type="number"
-            className="w-full"
-          />
-
-          <TextInput
-            label="Item Dimension in cm (20 x 30 x 100)"
-            name="dimensions"
-            register={register}
-            errors={errors}
-            className="w-full"
-          />
-
-          <TextInput
-            label="Item Tax in %"
-            name="taxRate"
-            type="number"
-            register={register}
-            errors={errors}
-            className="w-full"
-          />
-
-          <TextareaInput
-            label="Item Description"
-            name="description"
-            register={register}
-            errors={errors}
-          />
-
-          <TextareaInput
-            label="Item Notes"
-            name="notes"
-            register={register}
-            errors={errors}
-          />
-
-          <ImageInput
-            label="Item Image"
-            imageUrl={imageUrl}
-            setImageUrl={setImageUrl}
-            endpoint="imageUploader"
-          />
-        </div>
-        <SubmitButton isLoading={loading} title="Item" />
-      </form>
+      <CreateItemForm
+        categories={categories}
+        units={units}
+        brands={brands}
+        warehouses={warehouses}
+        suppliers={suppliers}
+      />
     </div>
   );
 }

@@ -1,3 +1,4 @@
+import db from "@/lib/db";
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
@@ -5,7 +6,12 @@ export async function POST(request) {
     const { title, abbreviation } = await request.json();
     
 
-    const unit = { title, abbreviation };
+    const unit = await db.unit.create({
+      data: {
+        title,
+        abbreviation
+      }
+    })
     console.log(unit);
     return NextResponse.json(unit)
   } catch (error) {
@@ -19,4 +25,27 @@ export async function POST(request) {
       }
     );
   }
+}
+
+
+
+export async function GET(request){
+  try{
+    const units = await db.unit.findMany({
+      orderBy:{
+        createdAt: "desc" //latest units
+      }
+    })
+    return NextResponse.json(units);
+  }catch (error) {
+    return NextResponse.json(
+      {
+        error,
+        message: "Failed to Fetch the brands",
+      },
+      {
+        status: 500,
+      }
+    );
+  } 
 }
