@@ -1,8 +1,10 @@
 "use client";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
 
 export default function OptionCard({ optionData }) {
+  const t = useTranslations();
   const {
     title,
     description,
@@ -27,7 +29,7 @@ export default function OptionCard({ optionData }) {
         </Link>
       ) : (
         <button className="py-2 rounded-sm bg-blue-600 inline-flex px-3 flex items-center space-x-2 text-white">
-          Enable
+          {t("Enable")}
         </button>
       )}
     </div>

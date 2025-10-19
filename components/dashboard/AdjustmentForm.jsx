@@ -8,19 +8,21 @@ import TextareaInput from "@/components/FormInputs/TextareaInput";
 import TextInput from "@/components/FormInputs/TextInput";
 import { data } from "autoprefixer";
 import { Minus, Plus, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function AdjustmentForm({ items, warehouses }) {
+  const t = useTranslations();
   const tabs = [
     {
-      title: "Add Stock",
+      title: t("Add Stock"),
       icon: Plus,
       form: "add",
     },
     {
-      title: "Transfer Stock",
+      title: t("Transfer Stock"),
       icon: Minus,
       form: "transfer",
     },
@@ -29,7 +31,7 @@ export default function AdjustmentForm({ items, warehouses }) {
   return (
     <div>
       {/* Header */}
-      <FormHeader title="New Adjustment" href="/dashboard/inventory" />
+      <FormHeader title={t("New Adjustment")} href="/dashboard/inventory" />
       {/* Form */}
 
       <div

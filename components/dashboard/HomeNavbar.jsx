@@ -1,27 +1,29 @@
 "use client"
 import { Building2 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
 export default function HomeNavbar() {
+  const t = useTranslations();
   const pathname = usePathname()  
   console.log(pathname)
   const navLinks = [
     {
-      title: "Dashboard",
+      title: t("Dashboard"),
       href: "/dashboard/home/overview",
     },
     {
-      title: "Getting Started",
+      title: t("Getting Started"),
       href: "/dashboard/home/getting-started",
     },
     {
-      title: "Recent Updates",
+      title: t("Recent Updates"),
       href: "/dashboard/home/updates",
     },
     {
-      title: "Announcements",
+      title: t("Announcements"),
       href: "/dashboard/home/announcements",
     },
   ];
@@ -32,7 +34,7 @@ export default function HomeNavbar() {
           <Building2 />
         </div>
         <div className="flex flex-col">
-          <p className="text-slate-700 font-semibold">Hello, WEBDEVELOPER</p>
+          <p className="text-slate-700 font-semibold">{t("Hello, WEB DEVELOPER")}</p>
           <span className="text-sm">TN</span>
         </div>
       </div>

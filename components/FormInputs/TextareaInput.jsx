@@ -1,4 +1,5 @@
 "use client";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 export default function TextareaInput({
@@ -9,7 +10,9 @@ export default function TextareaInput({
   isRequired = true,
   type = "text",
   className = "sm:col-span-2", 
-}) {
+}) 
+{
+  const t = useTranslations();
   // const {register, formState: {errors}} = useForm()
   return (
     <div className={className}>
@@ -29,7 +32,7 @@ export default function TextareaInput({
           defaultValue={""}
         />
         {errors[`${name}`] && (
-          <span className="text-sm text-red-600 ">{label} is required</span>
+          <span className="text-sm text-red-600 ">{t({label}, "is required")}</span>
         )}
       </div>
     </div>

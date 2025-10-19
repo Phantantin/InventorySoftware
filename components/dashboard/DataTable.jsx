@@ -1,4 +1,6 @@
+"use client"
 export default function DataTable({ data, columns }) {
+   const t = useTranslations();
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -10,7 +12,7 @@ export default function DataTable({ data, columns }) {
               </th>
             ))}
             {/* Cột cho hành động */}
-            <th scope="col" className="px-6 py-3 text-right">Action</th>
+            <th scope="col" className="px-6 py-3 text-right">{t("Action")}</th>
           </tr>
         </thead>
 
@@ -30,7 +32,7 @@ export default function DataTable({ data, columns }) {
                   href="#"
                   className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                 >
-                  Edit
+                  {t("Edit")}
                 </a>
               </td>
             </tr>

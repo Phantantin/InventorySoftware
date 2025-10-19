@@ -10,6 +10,7 @@ import { getData } from "@/lib/getData";
 import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
 import { data } from "autoprefixer";
 import { Pencil, Plus, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -22,7 +23,12 @@ export default function CreateItemForm({
   brands,
   warehouses,
   suppliers,
-}) {
+})
+
+
+
+{
+    const t = useTranslations();
   const [imageUrl, setImageUrl] = useState("");
 
   const {
@@ -48,7 +54,7 @@ export default function CreateItemForm({
     >
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <TextInput
-          label="Item Title"
+          label={t("Item Title")}
           name="title"
           register={register}
           errors={errors}
@@ -56,14 +62,14 @@ export default function CreateItemForm({
         />
         <SelectInput
           name="categoryId"
-          label="Select the Item Category"
+          label={t("Select the Item Category")}
           register={register}
           className="w-full"
           options={categories}
         />
 
         <TextInput
-          label="Item SKU"
+          label={t("Item SKU")}
           name="sku"
           register={register}
           errors={errors}
@@ -71,7 +77,7 @@ export default function CreateItemForm({
         />
 
         <TextInput
-          label="Item Barcode"
+          label={t("Item Barcode")}
           name="barcode"
           register={register}
           errors={errors}
@@ -80,7 +86,7 @@ export default function CreateItemForm({
         />
 
         <TextInput
-          label="Item Quantity"
+          label={t("Item Quantity")}
           name="quantity"
           register={register}
           errors={errors}
@@ -89,7 +95,7 @@ export default function CreateItemForm({
 
         <SelectInput
           name="unitId"
-          label="Select the Item Unit"
+          label={t("Select the Item Unit")}
           register={register}
           className="w-full"
           options={units}
@@ -97,14 +103,14 @@ export default function CreateItemForm({
 
         <SelectInput
           name="brandId"
-          label="Select the Item Brand"
+          label={t("Select the Item Brand")}
           register={register}
           className="w-full"
           options={brands}
         />
 
         <TextInput
-          label="Buying Price"
+          label={t("Buying Price")}
           name="buyingPrice"
           register={register}
           errors={errors}
@@ -113,7 +119,7 @@ export default function CreateItemForm({
         />
 
         <TextInput
-          label="Selling Price"
+          label={t("Selling Price")}
           name="sellingPrice"
           register={register}
           errors={errors}
@@ -123,7 +129,7 @@ export default function CreateItemForm({
 
         <SelectInput
           name="supplierId"
-          label="Select the Item Supplies"
+          label={t("Select the Item Supplies")}
           register={register}
           className="w-full"
           options={suppliers}
@@ -140,14 +146,14 @@ export default function CreateItemForm({
 
         <SelectInput
           name="warehouseId"
-          label="Select the Item Warehouse"
+          label={t("Select the Item Warehouse")}
           register={register}
           className="w-full"
           options={warehouses}
         />
 
         <TextInput
-          label="Item Weight in Kgs"
+          label={t("Item Weight in Kgs")}
           name="weight"
           register={register}
           errors={errors}
@@ -156,7 +162,7 @@ export default function CreateItemForm({
         />
 
         <TextInput
-          label="Item Dimension in cm (20 x 30 x 100)"
+          label={t("Item Dimension in cm (20 x 30 x 100)")}
           name="dimensions"
           register={register}
           errors={errors}
@@ -164,7 +170,7 @@ export default function CreateItemForm({
         />
 
         <TextInput
-          label="Item Tax in %"
+          label={t("Item Tax in %")}
           name="taxRate"
           type="number"
           register={register}
@@ -173,21 +179,21 @@ export default function CreateItemForm({
         />
 
         <TextareaInput
-          label="Item Description"
+          label={t("Item Description")}
           name="description"
           register={register}
           errors={errors}
         />
 
         <TextareaInput
-          label="Item Notes"
+          label={t("Item Notes")}
           name="notes"
           register={register}
           errors={errors}
         />
 
         <ImageInput
-          label="Item Image"
+          label={t("Item Image")}
           imageUrl={imageUrl}
           setImageUrl={setImageUrl}
           endpoint="imageUploader"

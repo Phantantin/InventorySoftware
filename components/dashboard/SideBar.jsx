@@ -17,75 +17,77 @@ import SubscriptionCard from "./SubscriptionCard";
 
 import CollapsibleLink from "./CollapsibleLink";
 import SidebarDropdownLink from "./SidebarDropdownLink";
+import { useTranslations } from "next-intl";
 
 export default function SideBar() {
+  const t = useTranslations();
   const inventoryLinks = [
     {
-      title: "Items",
+      title: t("Items"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Categories",
+      title: t("Categories"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Brands",
+      title: t("Brands"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Units",
+      title: t("Units"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Warehouse",
+      title: t("Warehouse"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Inventory Adjustment",
+      title: t("Inventory Adjustment"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Supplier",
+      title: t("Supplier"),
       href: "/dashboard/inventory",
     },
   ];
 
   const salesLinks = [
     {
-      title: "Customer",
+      title: t("Customer"),
       href: "#",
     },
     {
-      title: "Sales Orders",
+      title: t("Sales Orders"),
       href: "#",
     },
     {
-      title: "Packages",
+      title: t("Packages"),
       href: "#",
     },
     {
-      title: "Shipments",
+      title: t("Shipments"),
       href: "#",
     },
     {
-      title: "Invoices",
+      title: t("Invoices"),
       href: "#",
     }
     ,
     {
-      title: "Sales Receipts",
+      title: t("Sales Receipts"),
       href: "#",
     },
     {
-      title: "Payments Received",
+      title: t("Payments Received"),
       href: "#",
     },
     {
-      title: "Sales Return",
+      title: t("Sales Return"),
       href: "#",
     },
     {
-      title: "Credit Notes",
+      title: t("Credit Notes"),
       href: "#",
     }
   ];
@@ -99,7 +101,7 @@ export default function SideBar() {
           className="bg-slate-950 flex space-x-2 items-center py-3 px-2"
         >
           <ShoppingCart />
-          <span className="text-xl font-semibold">Inventory</span>
+          <span className="text-xl font-semibold">{t("Inventory")}</span>
         </Link>
 
         {/* Link */}
@@ -109,32 +111,32 @@ export default function SideBar() {
             className="flex items-center space-x-2 bg-blue-600 text-slate-50 p-2 rounded-md"
           >
             <Home className="w-4 h-4" />
-            <span>Home</span>
+            <span>{t("Home")}</span>
           </Link>
           <SidebarDropdownLink items={inventoryLinks} 
-            title="Inventory" icon={BaggageClaim}/>
+            title={t("Inventory" )}icon={BaggageClaim}/>
 
           <SidebarDropdownLink items={salesLinks} 
-            title="Sales" icon={ShoppingBasket}/>
+            title={t("Sales")} icon={ShoppingBasket}/>
 
           <button href="#" className="p-2 flex items-center space-x-2">
             <ShoppingBag className="w-4 h-4" />
-            <span>Purchases</span>
+            <span>{t("Purchases")}</span>
           </button>
 
           <Link href="#" className="p-2 flex items-center space-x-2">
             <Cable className="w-4 h-4" />
-            <span>Integrations</span>
+            <span>{t("Integrations")}</span>
           </Link>
 
           <Link href="#" className="p-2 flex items-center space-x-2">
             <BarChart4 className="w-4 h-4" />
-            <span>Reports</span>
+            <span>{t("Reports")}</span>
           </Link>
 
           <Link href="#" className="p-2 flex items-center space-x-2">
             <Files className="w-4 h-4" />
-            <span>Documents</span>
+            <span>{t("Documents")}</span>
           </Link>
         </nav>
         <SubscriptionCard />

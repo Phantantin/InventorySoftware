@@ -1,7 +1,9 @@
 import { Plus } from "lucide-react";
+import { useTranslations } from "next-intl";
 import React from "react";
 
 export default function SubmitButton({isLoading, title}) {
+   const t = useTranslations();
   return (
     <div className="sm:col-span-1">
       {isLoading ? (
@@ -27,7 +29,7 @@ export default function SubmitButton({isLoading, title}) {
               fill="currentColor"
             />
           </svg>
-          Saving {title} Please wait...
+         {t("Saving", { title }, ". Please wait...")}
         </button>
       ) : (
         <button
@@ -35,7 +37,7 @@ export default function SubmitButton({isLoading, title}) {
           className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-purple-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
         >
           <Plus className="w-5 h-5 mr-2" />
-          <span>Save {title}</span>
+          <span>{t("Save", {title})}</span>
         </button>
       )}
     </div>

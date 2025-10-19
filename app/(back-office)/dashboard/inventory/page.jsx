@@ -1,84 +1,80 @@
-"use client"
+"use client";
+import { useTranslations } from "next-intl";
 import FixedHeader from "@/components/dashboard/FixedHeader";
+import LanguageSwitcher from "@/components/dashboard/LanguageSwitcher";
 import OptionCard from "@/components/dashboard/OptionCard";
-import { Box, Boxes, Component, Diff, Factory, Layout, LayoutGrid, LayoutPanelTop, Scale, ScrollText, Shirt, Slack, Warehouse } from "lucide-react";
-import Link from "next/link";
-import React from "react";
+import { LayoutGrid, LayoutPanelTop, Slack, Warehouse, Scale, Factory, Diff } from "lucide-react";
 
 export default function Inventory() {
-  
-  const optionCards =[
+  const t = useTranslations();
 
+  const optionCards = [
     {
-      title: "Items",
-      description: "Create standalone items and service that you buy and sell",
+      title: t("Items"),
+      description: t("Create standalone items and service that you buy and sell"),
       link: "/dashboard/inventory/items/new",
-      linkTitle: "New Item",
+      linkTitle: t("New Item"),
       enabled: true,
       icon: LayoutGrid
     },
     {
-      title: "Categories",
-      description: "Bundle different items together and sell them as kits",
+      title: t("Categories"),
+      description: t("Bundle different items together and sell them as kits"),
       link: "/dashboard/inventory/categories/new",
-      linkTitle: "New Category",
+      linkTitle: t("New Category"),
       enabled: true,
       icon: LayoutPanelTop
     },
     {
-      title: "Brands",
-      description: "Tweak your item prices for specific contacts or transaction",
+      title: t("Brands"),
+      description: t("Tweak your item prices for specific contacts or transaction"),
       link: "/dashboard/inventory/brands/new",
-      linkTitle: "New Brand",
+      linkTitle: t("New Brand"),
       enabled: true,
       icon: Slack
     },
     {
-      title: "Warehouse",
-      description: "Tweak your item prices for specific contacts or transaction",
+      title: t("Warehouse"),
+      description: t("Tweak your item prices for specific contacts or transaction"),
       link: "/dashboard/inventory/warehouse/new",
-      linkTitle: "New Warehouse",
+      linkTitle: t("New Warehouse"),
       enabled: true,
       icon: Warehouse
     },
     {
-      title: "Units",
-      description: "Tweak your item prices for specific contacts or transaction",
+      title: t("Units"),
+      description: t("Tweak your item prices for specific contacts or transaction"),
       link: "/dashboard/inventory/units/new",
-      linkTitle: "New Unit",
+      linkTitle: t("New Unit"),
       enabled: true,
       icon: Scale
     },
     {
-      title: "Suppliers",
-      description: "Tweak your item prices for specific contacts or transaction",
+      title: t("Suppliers"),
+      description: t("Tweak your item prices for specific contacts or transaction"),
       link: "/dashboard/inventory/suppliers/new",
-      linkTitle: "New Supplier",
+      linkTitle: t("New Supplier"),
       enabled: true,
       icon: Factory
     },
     {
-      title: "Inventory Adjustment",
-      description: "Transfer stock from the Main Warehouse",
+      title: t("Inventory Adjustment"),
+      description: t("Transfer stock from the Main Warehouse"),
       link: "/dashboard/inventory/adjustments/new",
-      linkTitle: "New Adjustment",
+      linkTitle: t("New Adjustment"),
       enabled: true,
       icon: Diff
     }
-  ]
+  ];
+
   return (
     <div>
-      <FixedHeader newLink="/dashboard/inventory/items/new"/>
-      <div className="grid grid-col-1 lg:grid-cols-3 md:grid-cols-2 py-8 px-16 gap-6">
-        {
-          optionCards.map((card,i)=>{
-            return(
-              <OptionCard key={i} optionData={card}/>
-            )
-          })
-        }
+      <FixedHeader newLink="/dashboard/inventory/items/new" />
 
-       
+      <div className="grid grid-col-1 lg:grid-cols-3 md:grid-cols-2 py-8 px-16 gap-6">
+        {optionCards.map((card, i) => (
+          <OptionCard key={i} optionData={card} />
+        ))}
       </div>
     </div>
   );
