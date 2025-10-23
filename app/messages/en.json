@@ -144,6 +144,8 @@
   "updatedAt": "updatedAt",
   "imageUrl": "imageUrl",
   "Update Item": "Update Item",
-  "Loading data": "Loading data..."
+  "Loading data": "Loading data...",
+  "Deleting": "Deleting",
+  "Deleted Successfully": "Deleted Successfully"
 
 }
