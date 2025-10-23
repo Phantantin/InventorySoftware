@@ -144,8 +144,7 @@
   "updatedAt": "Thời gian cập nhập",
   "imageUrl": "Hình ảnh",
   "Update Item": "Cập nhập mặt hàng",
-  "Loading data": "Đang tải dử liệu..."
-
-
-
+  "Loading data": "Đang tải dử liệu...",
+  "Deleting": "Đang xóa",
+  "Deleted Successfully": "Xóa thành công"
 }
