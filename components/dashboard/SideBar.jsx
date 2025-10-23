@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   BaggageClaim,
   BarChart4,
@@ -10,6 +10,7 @@ import {
   ShoppingBag,
   ShoppingBasket,
   ShoppingCart,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -17,90 +18,111 @@ import SubscriptionCard from "./SubscriptionCard";
 
 import CollapsibleLink from "./CollapsibleLink";
 import SidebarDropdownLink from "./SidebarDropdownLink";
+import { useTranslations } from "next-intl";
 
-export default function SideBar() {
+export default function SideBar({ showSidebar, setShowSidebar }) {
+  console.log(showSidebar);
+
+  const t = useTranslations();
   const inventoryLinks = [
     {
-      title: "Items",
+      title: t("All"),
       href: "/dashboard/inventory",
     },
     {
-      title: "Categories",
-      href: "/dashboard/inventory",
+      title: t("Items"),
+      href: "/dashboard/inventory/items",
     },
     {
-      title: "Brands",
-      href: "/dashboard/inventory",
+      title: t("Categories"),
+      href: "/dashboard/inventory/categories",
     },
     {
-      title: "Units",
-      href: "/dashboard/inventory",
+      title: t("Brands"),
+      href: "/dashboard/inventory/brands",
     },
     {
-      title: "Warehouse",
-      href: "/dashboard/inventory",
+      title: t("Units"),
+      href: "/dashboard/inventory/units",
     },
     {
-      title: "Inventory Adjustment",
-      href: "/dashboard/inventory",
+      title: t("Warehouse"),
+      href: "/dashboard/inventory/warehouse",
     },
     {
-      title: "Supplier",
-      href: "/dashboard/inventory",
+      title: t("Inventory Adjustment"),
+      href: "/dashboard/inventory/adjustments",
+    },
+    {
+      title: t("Supplier"),
+      href: "/dashboard/inventory/suppliers",
     },
   ];
 
   const salesLinks = [
     {
-      title: "Customer",
+      title: t("Customer"),
       href: "#",
     },
     {
-      title: "Sales Orders",
+      title: t("Sales Orders"),
       href: "#",
     },
     {
-      title: "Packages",
+      title: t("Packages"),
       href: "#",
     },
     {
-      title: "Shipments",
+      title: t("Shipments"),
       href: "#",
     },
     {
-      title: "Invoices",
-      href: "#",
-    }
-    ,
-    {
-      title: "Sales Receipts",
+      title: t("Invoices"),
       href: "#",
     },
     {
-      title: "Payments Received",
+      title: t("Sales Receipts"),
       href: "#",
     },
     {
-      title: "Sales Return",
+      title: t("Payments Received"),
       href: "#",
     },
     {
-      title: "Credit Notes",
+      title: t("Sales Return"),
       href: "#",
-    }
+    },
+    {
+      title: t("Credit Notes"),
+      href: "#",
+    },
   ];
   return (
-    <div className="w-60 min-h-screen bg-slate-800 text-slate-50 justify-between">
+    <div
+      className={`${
+        showSidebar
+          ? "w-60 min-h-screen bg-slate-800 text-slate-50 fixed lg:block z-50"
+          : "w-60 min-h-screen bg-slate-800 text-slate-50 fixed hidden lg:block z-50"
+      }`}
+    >
       {/* Top Bar */}
       <div className="flex flex-col">
         {/* Logo */}
-        <Link
-          href="#"
-          className="bg-slate-950 flex space-x-2 items-center py-3 px-2"
-        >
-          <ShoppingCart />
-          <span className="text-xl font-semibold">Inventory</span>
-        </Link>
+        <div className="flex justify-between">
+          <Link
+            href="#"
+            className="bg-slate-950 flex space-x-2 items-center py-3 px-2 w-full"
+          >
+            <ShoppingCart />
+            <span className="text-xl font-semibold">{t("Inventory")}</span>
+          </Link>
+          <button
+            className="bg-slate-950 py-3 px-4 lg:hidden"
+            onClick={() => setShowSidebar(false)}
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+        </div>
 
         {/* Link */}
         <nav className="flex flex-col gap-3 px-3 py-6">
@@ -109,32 +131,39 @@ export default function SideBar() {
             className="flex items-center space-x-2 bg-blue-600 text-slate-50 p-2 rounded-md"
           >
             <Home className="w-4 h-4" />
-            <span>Home</span>
+            <span>{t("Home")}</span>
           </Link>
-          <SidebarDropdownLink items={inventoryLinks} 
-            title="Inventory" icon={BaggageClaim}/>
+          <SidebarDropdownLink
+            items={inventoryLinks}
+            title={t("Inventory")}
+            icon={BaggageClaim}
+            setShowSidebar={setShowSidebar}
+          />
 
-          <SidebarDropdownLink items={salesLinks} 
-            title="Sales" icon={ShoppingBasket}/>
+          <SidebarDropdownLink
+            items={salesLinks}
+            title={t("Sales")}
+            icon={ShoppingBasket}
+          />
 
           <button href="#" className="p-2 flex items-center space-x-2">
             <ShoppingBag className="w-4 h-4" />
-            <span>Purchases</span>
+            <span>{t("Purchases")}</span>
           </button>
 
           <Link href="#" className="p-2 flex items-center space-x-2">
             <Cable className="w-4 h-4" />
-            <span>Integrations</span>
+            <span>{t("Integrations")}</span>
           </Link>
 
           <Link href="#" className="p-2 flex items-center space-x-2">
             <BarChart4 className="w-4 h-4" />
-            <span>Reports</span>
+            <span>{t("Reports")}</span>
           </Link>
 
           <Link href="#" className="p-2 flex items-center space-x-2">
             <Files className="w-4 h-4" />
-            <span>Documents</span>
+            <span>{t("Documents")}</span>
           </Link>
         </nav>
         <SubscriptionCard />

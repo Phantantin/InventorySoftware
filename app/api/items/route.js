@@ -46,6 +46,9 @@ export async function GET(request){
     const items = await db.item.findMany({
       orderBy:{
         createdAt: "desc" //latest items
+      },
+      include: {
+        category: true
       }
     })
     return NextResponse.json(items);

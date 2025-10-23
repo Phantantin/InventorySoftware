@@ -7,11 +7,13 @@ import TextInput from "@/components/FormInputs/TextInput";
 import { makePostRequest } from "@/lib/apiRequest";
 import { data } from "autoprefixer";
 import { Plus, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function AddInventoryForm({items, warehouses}) {
+    const t = useTranslations();
 
   const {
     register,
@@ -29,7 +31,8 @@ export default function AddInventoryForm({items, warehouses}) {
       "/api/adjustments/add",
       data,
       "Stock Adjustment",
-      reset
+      reset,
+      t
     );
   }
   return (
@@ -40,7 +43,7 @@ export default function AddInventoryForm({items, warehouses}) {
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <TextInput
           type="text"
-          label="Reference Number"
+          label={t("Reference Number")} 
           name="referenceNumber"
           register={register}
           errors={errors}
@@ -48,7 +51,7 @@ export default function AddInventoryForm({items, warehouses}) {
         />
         <SelectInput
           name="itemId"
-          label="Select the Item"
+      label={t("Select the Item")}
           register={register}
           className="w-full"
           options={items}
@@ -56,7 +59,7 @@ export default function AddInventoryForm({items, warehouses}) {
 
         <TextInput
           type="number"
-          label="Enter Quantity of Stock to Add"
+          label={t("Enter Quantity of Stock to Add")}
           name="addStockQty"
           register={register}
           errors={errors}
@@ -65,20 +68,20 @@ export default function AddInventoryForm({items, warehouses}) {
 
         <SelectInput
           name="receivingWarehouseId"
-          label="Select the Warehouse that will receive the Stock"
+          label={t("Select the Warehouse that will receive the Stock")}
           register={register}
           className="w-full"
           options={warehouses}
         />
 
         <TextareaInput
-          label="Adjustment Notes"
+          label={t("Adjustment Notes")}
           name="notes"
           register={register}
           errors={errors}
         />
       </div>
-      <SubmitButton isLoading={loading} title="Adjustment" />
+      <SubmitButton isLoading={loading} title={t("Adjustment")} />
     </form>
   );
 }

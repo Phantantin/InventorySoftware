@@ -1,20 +1,35 @@
+"use client";
 import DataTable from "@/components/dashboard/DataTable";
 import FixedHeader from "@/components/dashboard/FixedHeader";
 import FormHeader from "@/components/dashboard/FormHeader";
 import { getData } from "@/lib/getData";
-import React from "react";
+import { useTranslations } from "next-intl";
+import React, { useEffect, useState } from "react";
 
-export default async function Categories() {
-  const categories = await getData("categories")
-  const columns = ["title", "description"]
-  
+export default function Categories() {
+  const t = useTranslations();
+
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getData("categories").then(setCategories);
+  }, []);
+
+  const columns = [
+    { key: "title", label: t("title") },
+    { key: "description", label: t("description") },
+  ];
+
   return (
     <div>
       {/* Header */}
-      <FixedHeader title="Categories" newLink="/dashboard/inventory/categories/new"/>
+      <FixedHeader
+        title={t("Categories")}
+        newLink="/dashboard/inventory/categories/new"
+      />
       {/* table */}
       <div className="my-4 p-8">
-        <DataTable data={categories} columns={columns}/>
+        <DataTable data={categories} columns={columns} resourceTitle="categories" />
       </div>
     </div>
   );

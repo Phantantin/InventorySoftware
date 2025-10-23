@@ -1,3 +1,4 @@
+"use client"
 import {
   HelpCircle,
   LayoutGrid,
@@ -5,10 +6,12 @@ import {
   MoreHorizontal,
   Plus,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import React from "react";
 
 export default function FixedHeader({newLink, title}) {
+   const t = useTranslations();
   return (
     <div className="flex justify-between items-center bg-white py-5 px-4">
       <button className="text-2xl">{title}</button>
@@ -19,7 +22,7 @@ export default function FixedHeader({newLink, title}) {
           className="p-1 rounded-sm bg-blue-600 px-3 flex items-center space-x-2 text-white"
         >
           <Plus className=" w-4 h-4" />
-          <span>New</span>
+          <span>{t("New")}</span>
         </Link>
         {/* Layout */}
         <div className="flex rounded-md overflow-hidden">
