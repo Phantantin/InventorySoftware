@@ -31,7 +31,7 @@ export default function AdjustmentForm({ items, warehouses }) {
   return (
     <div>
       {/* Header */}
-      <FormHeader title={t("New Adjustment")} href="/dashboard/inventory" />
+      <FormHeader title={t("New Adjustment")} href="/dashboard/inventory/adjustments" />
       {/* Form */}
 
       <div

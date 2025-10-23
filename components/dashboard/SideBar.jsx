@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import {
   BaggageClaim,
   BarChart4,
@@ -10,6 +10,7 @@ import {
   ShoppingBag,
   ShoppingBasket,
   ShoppingCart,
+  X,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -19,36 +20,42 @@ import CollapsibleLink from "./CollapsibleLink";
 import SidebarDropdownLink from "./SidebarDropdownLink";
 import { useTranslations } from "next-intl";
 
-export default function SideBar() {
+export default function SideBar({ showSidebar, setShowSidebar }) {
+  console.log(showSidebar);
+
   const t = useTranslations();
   const inventoryLinks = [
     {
-      title: t("Items"),
+      title: t("All"),
       href: "/dashboard/inventory",
+    },
+    {
+      title: t("Items"),
+      href: "/dashboard/inventory/items",
     },
     {
       title: t("Categories"),
-      href: "/dashboard/inventory",
+      href: "/dashboard/inventory/categories",
     },
     {
       title: t("Brands"),
-      href: "/dashboard/inventory",
+      href: "/dashboard/inventory/brands",
     },
     {
       title: t("Units"),
-      href: "/dashboard/inventory",
+      href: "/dashboard/inventory/units",
     },
     {
       title: t("Warehouse"),
-      href: "/dashboard/inventory",
+      href: "/dashboard/inventory/warehouse",
     },
     {
       title: t("Inventory Adjustment"),
-      href: "/dashboard/inventory",
+      href: "/dashboard/inventory/adjustments",
     },
     {
       title: t("Supplier"),
-      href: "/dashboard/inventory",
+      href: "/dashboard/inventory/suppliers",
     },
   ];
 
@@ -72,8 +79,7 @@ export default function SideBar() {
     {
       title: t("Invoices"),
       href: "#",
-    }
-    ,
+    },
     {
       title: t("Sales Receipts"),
       href: "#",
@@ -89,20 +95,34 @@ export default function SideBar() {
     {
       title: t("Credit Notes"),
       href: "#",
-    }
+    },
   ];
   return (
-    <div className="w-60 min-h-screen bg-slate-800 text-slate-50 justify-between">
+    <div
+      className={`${
+        showSidebar
+          ? "w-60 min-h-screen bg-slate-800 text-slate-50 fixed lg:block z-50"
+          : "w-60 min-h-screen bg-slate-800 text-slate-50 fixed hidden lg:block z-50"
+      }`}
+    >
       {/* Top Bar */}
       <div className="flex flex-col">
         {/* Logo */}
-        <Link
-          href="#"
-          className="bg-slate-950 flex space-x-2 items-center py-3 px-2"
-        >
-          <ShoppingCart />
-          <span className="text-xl font-semibold">{t("Inventory")}</span>
-        </Link>
+        <div className="flex justify-between">
+          <Link
+            href="#"
+            className="bg-slate-950 flex space-x-2 items-center py-3 px-2 w-full"
+          >
+            <ShoppingCart />
+            <span className="text-xl font-semibold">{t("Inventory")}</span>
+          </Link>
+          <button
+            className="bg-slate-950 py-3 px-4 lg:hidden"
+            onClick={() => setShowSidebar(false)}
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+        </div>
 
         {/* Link */}
         <nav className="flex flex-col gap-3 px-3 py-6">
@@ -113,11 +133,18 @@ export default function SideBar() {
             <Home className="w-4 h-4" />
             <span>{t("Home")}</span>
           </Link>
-          <SidebarDropdownLink items={inventoryLinks} 
-            title={t("Inventory" )}icon={BaggageClaim}/>
+          <SidebarDropdownLink
+            items={inventoryLinks}
+            title={t("Inventory")}
+            icon={BaggageClaim}
+            setShowSidebar={setShowSidebar}
+          />
 
-          <SidebarDropdownLink items={salesLinks} 
-            title={t("Sales")} icon={ShoppingBasket}/>
+          <SidebarDropdownLink
+            items={salesLinks}
+            title={t("Sales")}
+            icon={ShoppingBasket}
+          />
 
           <button href="#" className="p-2 flex items-center space-x-2">
             <ShoppingBag className="w-4 h-4" />

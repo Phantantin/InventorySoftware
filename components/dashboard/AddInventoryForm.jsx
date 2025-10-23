@@ -31,7 +31,8 @@ export default function AddInventoryForm({items, warehouses}) {
       "/api/adjustments/add",
       data,
       "Stock Adjustment",
-      reset
+      reset,
+      t
     );
   }
   return (

@@ -30,7 +30,8 @@ const t = useTranslations();
       "/api/adjustments/transfer",
       data,
       "Stock Adjustment",
-      reset
+      reset,
+      t
     );
   }
   return (

@@ -32,7 +32,7 @@ export default function TextareaInput({
           defaultValue={""}
         />
         {errors[`${name}`] && (
-          <span className="text-sm text-red-600 ">{t({label}, "is required")}</span>
+          <span className="text-sm text-red-600 ">{`${label} ${t("is required")} `}</span>
         )}
       </div>
     </div>

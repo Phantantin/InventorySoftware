@@ -6,17 +6,43 @@ export default function IntlProvider({ children }) {
   const [locale, setLocale] = useState("vi");
   const [messages, setMessages] = useState(null);
 
-  useEffect(() => {
-    const saved = localStorage.getItem("locale") || "vi";
-    setLocale(saved);
+  // Fallback dictionary tạm thời cho loading screen
+  const fallbackMessages = {
+    vi: { loading: "Đang tải bản dịch..." },
+    en: { loading: "Loading translations..." },
+  };
 
-    // import(`../messages/${saved}.json`)
-    import(`@/app/messages/${saved}.json`)
-      .then((mod) => setMessages(mod.default))
-      .catch(() => console.error("Missing locale file"));
+  useEffect(() => {
+    const loadLocale = async () => {
+      const savedLocale = localStorage.getItem("locale") || "vi";
+      setLocale(savedLocale);
+
+      try {
+        const mod = await import(`@/app/messages/${savedLocale}.json`);
+        setMessages(mod.default);
+      } catch (err) {
+        console.error(`⚠️ Missing locale file for ${savedLocale}, fallback to English.`);
+        try {
+          const fallback = await import("@/app/messages/en.json");
+          setMessages(fallback.default);
+        } catch {
+          console.error("❌ Missing fallback English translation file.");
+        }
+      }
+    };
+
+    loadLocale();
   }, []);
 
-  if (!messages) return <div className="p-6 text-gray-500">Loading translations...</div> // tránh lỗi khi chưa load
+  // Hiển thị khi đang tải translations
+  if (!messages) {
+    const msg = fallbackMessages[locale]?.loading || "Loading...";
+    return (
+      <div className="p-6 text-gray-500 text-center animate-pulse">
+        {msg}
+      </div>
+    );
+  }
 
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
