@@ -156,9 +156,6 @@
 //   );
 // }
 
-
-
-
 // "use client";
 
 // import { Pencil, Trash2 } from "lucide-react";
@@ -303,7 +300,9 @@ export default function DataTable({ data = [], columns = [], resourceTitle }) {
                 {getColumnLabel(col)}
               </th>
             ))}
-            <th scope="col" className="px-6 py-3">{t("Action")}</th>
+            <th scope="col" className="px-6 py-3">
+              {t("Action")}
+            </th>
           </tr>
         </thead>
 
@@ -332,7 +331,11 @@ export default function DataTable({ data = [], columns = [], resourceTitle }) {
                           <span className="text-gray-400 italic">No image</span>
                         )
                       ) : key === "createdAt" || key === "updatedAt" ? (
-                        value ? new Date(value).toLocaleDateString() : "-"
+                        value ? (
+                          new Date(value).toLocaleDateString()
+                        ) : (
+                          "-"
+                        )
                       ) : (
                         value ?? "-"
                       )}
@@ -342,13 +345,17 @@ export default function DataTable({ data = [], columns = [], resourceTitle }) {
 
                 {/* Action buttons */}
                 <td className="px-6 py-4 text-right flex items-center space-x-4">
-                  <Link
-                    href={`/dashboard/inventory/${resourceTitle}/update/${item.id}`}
-                    className="font-medium text-blue-600 dark:text-blue-500 flex items-center space-x-1"
-                  >
-                    <Pencil className="w-4 h-4" />
-                    <span>{t("Edit")}</span>
-                  </Link>
+                  {resourceTitle.includes("adjustments") ? (
+                    ""
+                  ) : (
+                    <Link
+                      href={`/dashboard/inventory/${resourceTitle}/update/${item.id}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 flex items-center space-x-1"
+                    >
+                      <Pencil className="w-4 h-4" />
+                      <span>{t("Edit")}</span>
+                    </Link>
+                  )}
 
                   <DeleteBtn
                     id={item.id}

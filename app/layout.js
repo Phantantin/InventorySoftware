@@ -1,4 +1,3 @@
-
 // import "../styles/main.scss";
 // import { Inter } from "next/font/google";
 // import { Toaster } from "react-hot-toast";
@@ -21,12 +20,12 @@
 //   );
 // }
 
-
 // app/layout.js
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "../styles/main.scss";
 import IntlProvider from "./providers/IntlProvider";
+import AuthProvider from "@/context/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -37,12 +36,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en"  className="mdl-js">
+    <html lang="en" className="mdl-js">
       <body className={inter.className}>
-        <IntlProvider>
-          {children}
-          <Toaster position="top-right" />
-        </IntlProvider>
+        <AuthProvider>
+          <IntlProvider>
+            {children}
+            <Toaster position="top-right" />
+          </IntlProvider>
+        </AuthProvider>
       </body>
     </html>
   );

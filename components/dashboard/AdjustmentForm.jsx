@@ -13,7 +13,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function AdjustmentForm({ items, warehouses }) {
+export default function AdjustmentForm({ items, warehouses, suppliers }) {
   const t = useTranslations();
   const tabs = [
     {
@@ -63,7 +63,7 @@ export default function AdjustmentForm({ items, warehouses }) {
       </div>
 
       {activeForm === "add" ? (
-        <AddInventoryForm items={items} warehouses={warehouses} />
+        <AddInventoryForm items={items} suppliers={suppliers} warehouses={warehouses} />
       ) : (
         <TransferInventoryForm items={items} warehouses={warehouses} />
       )}
