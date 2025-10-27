@@ -1,3 +1,4 @@
+"use client";
 import {
   AlignCenter,
   AlignJustify,
@@ -13,14 +14,38 @@ import React from "react";
 import SearchInput from "./SearchInput";
 import Image from "next/image";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { generateInitials } from "@/lib/generateInitial";
+import Login from "@/app/login/page";
 
-export default function Header({setShowSidebar}) {
-  function handleClick(){
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+export default function Header({ setShowSidebar }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  if (status === "loading") {
+    return <p>Loading User...</p>;
+  }
+  if (status === "unauthenticated") {
+    return <Login />;
+    // router.push("/login")
+  }
+  const username = session?.user?.name.split(" ")[0] ?? "";
+  const initials = generateInitials(session?.user?.name);
+  function handleClick() {
     console.log("Btn clicked");
   }
   return (
     <div className="bg-gray-50 h-12 flex items-center justify-between px-6 border-b border-slate-200">
-      <button className="lg:hidden" onClick={()=>setShowSidebar(true)}>
+      <button className="lg:hidden" onClick={() => setShowSidebar(true)}>
         <AlignJustify className="w-6 h-6" />
       </button>
       {/* Left side */}
@@ -55,19 +80,47 @@ export default function Header({setShowSidebar}) {
 
         {/* Profile group */}
         <div className="flex items-center gap-3">
-          <button className="flex items-center hover:bg-slate-200 rounded px-2 py-1">
-            <span className="text-sm font-medium">TN</span>
-            <ChevronDown className="w-4 h-4" />
-          </button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="flex items-center hover:bg-slate-200 rounded px-2 py-1">
+                <span className="text-sm font-medium">{username}</span>
+                <ChevronDown className="w-4 h-4" />
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <button onClick={()=>signOut()}>Logout</button>
+              </DropdownMenuItem>
+              <DropdownMenuItem>Billing</DropdownMenuItem>
+              <DropdownMenuItem>Team</DropdownMenuItem>
+              <DropdownMenuItem>Subscription</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           <button>
-            <Image
+            {session.user?.image ? (
+              <Image
+                src={session.user?.image}
+                width={32}
+                height={32}
+                className="w-8 h-8 rounded-full border border-slate-300"
+                alt="user avatar"
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full border border-slate-800 bg-white">
+                {initials}
+              </div>
+            )}
+
+            {/* <Image
               src="/users.png"
               width={32}
               height={32}
               className="w-8 h-8 rounded-full border border-slate-300"
               alt="user avatar"
-            />
+            /> */}
           </button>
           <button className="p-1.5 rounded-lg hover:bg-slate-200">
             <LayoutGrid className="w-5 h-5 text-slate-900" />

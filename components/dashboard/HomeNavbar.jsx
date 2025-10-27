@@ -1,5 +1,6 @@
 "use client";
 import { Building2 } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,6 +8,13 @@ import React from "react";
 
 export default function HomeNavbar() {
   const t = useTranslations();
+  const { data: session, status } = useSession();
+  if (status === "loading") {
+    return <p>{t("Loading")} </p>;
+  }
+
+  const username = session?.user?.name.toLocaleUpperCase();
+
   const pathname = usePathname();
   console.log(pathname);
   const navLinks = [
@@ -35,21 +43,18 @@ export default function HomeNavbar() {
         </div>
         <div className="flex flex-col">
           <p className="text-slate-700 font-semibold">
-            {t("Hello, WEB DEVELOPER")}
+            {t("hello")}, {username}
           </p>
-          <span className="text-sm">TN</span>
+          <span className="text-sm">{username}</span>
         </div>
       </div>
       <nav className="mt-6 flex space-x-4">
-
-
         <div className="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
           <ul className="flex flex-wrap -mb-px">
             {navLinks.map((item, i) => {
               return (
                 <li className="me-2" key={i}>
                   <Link
-                    
                     href={item.href}
                     className={`${
                       pathname === item.href

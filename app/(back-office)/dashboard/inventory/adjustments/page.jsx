@@ -70,11 +70,13 @@ export default function Adjustments() {
   const addColumns = [
     { key: "referenceNumber", label: t("Reference Number") },
     { key: "addStockQty", label: t("Added Quantity") },
+     { key: "createdAt", label: t("createdAt") },
   ];
 
   const transferColumns = [
     { key: "referenceNumber", label: t("Reference Number") },
     { key: "transferStockQty", label: t("Transferred Quantity") },
+    { key: "createdAt", label: t("createdAt") },
   ];
 
   return (

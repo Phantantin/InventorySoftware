@@ -12,8 +12,8 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-export default function AddInventoryForm({items, warehouses}) {
-    const t = useTranslations();
+export default function AddInventoryForm({ items, warehouses, suppliers }) {
+  const t = useTranslations();
 
   const {
     register,
@@ -43,18 +43,25 @@ export default function AddInventoryForm({items, warehouses}) {
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <TextInput
           type="text"
-          label={t("Reference Number")} 
+          label={t("Reference Number")}
           name="referenceNumber"
           register={register}
           errors={errors}
-          className="w-full"
         />
         <SelectInput
           name="itemId"
-      label={t("Select the Item")}
+          label={t("Select the Item")}
           register={register}
           className="w-full"
           options={items}
+        />
+
+        <SelectInput
+          name="supplierId"
+          label={t("Select the Supplier")}
+          register={register}
+          className="w-full"
+          options={suppliers}
         />
 
         <TextInput

@@ -6,6 +6,28 @@ export async function POST(request) {
   try {
     const itemData = await request.json();
 
+    //get the warehouse
+    const warehouse = await db.warehouse.findUnique({
+      where: {
+        id: itemData.warehouseId
+        // id: new ObjectId(itemData.warehouseId)
+      }
+    })
+
+    // current Stock of the warehouse
+    const currentWarehouseStock = warehouse.stockQty;
+    const newStockQty = parseInt(currentWarehouseStock) + parseInt(itemData.quantity)
+    // update the stock om the warehouse
+    const updateWarehouse = await db.warehouse.update({
+        where: {
+        id: itemData.warehouseId
+        // id: new ObjectId(itemData.warehouseId)
+      },
+      data: {
+        stockQty: newStockQty
+      }
+    })
+
     const item = await db.item.create({
       data: {
         title: itemData.title,
@@ -48,7 +70,10 @@ export async function GET(request){
         createdAt: "desc" //latest items
       },
       include: {
-        category: true
+        category: true,
+        warehouse: true,
+        unit: true,
+        supplier: true
       }
     })
     return NextResponse.json(items);

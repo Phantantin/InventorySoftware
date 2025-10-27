@@ -57,6 +57,9 @@ export async function DELETE(request, {searchParams}){
     const deletedWarehouse = await db.warehouse.delete({
       where: {
         id
+      },
+      include:{
+        item: true
       }
     })
     console.log(deletedWarehouse);
