@@ -173,5 +173,8 @@
   "invalidCredential": "Invalid email or password!",
   "loginSuccess": "Login successful",
   "login": "Login",
-  "loggingIn": "Logging in..."
+  "loggingIn": "Logging in...",
+  "available": "Available Stock Items",
+  "availableInWarehouse": "Available Stock Items in ",
+  "Available Stock Items Stock": "Available Stock Items Stock"
 }

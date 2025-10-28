@@ -173,5 +173,8 @@
   "invalidCredential": "Email hoặc mật khẩu không đúng!",
   "loginSuccess": "Đăng nhập thành công",
   "login": "Đăng nhập",
-  "loggingIn": "Đang đăng nhập..."
+  "loggingIn": "Đang đăng nhập...",
+  "available": "Số lượng hàng tồn kho",
+  "availableInWarehouse": "Hàng tồn kho tại ",
+  "Available Stock Items Stock": "Hàng có sẵn trong kho"
 }
