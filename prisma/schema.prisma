@@ -38,8 +38,8 @@ model Item {
   dimensions              String?
   taxRate                 Float
   notes                   String?
-  AddStockAdjustment      AddStockAdjustment[]
-  TransferStockAdjustment TransferStockAdjustment[]
+  addStockAdjustment      AddStockAdjustment[]
+  transferStockAdjustment TransferStockAdjustment[]
   createdAt               DateTime                  @default(now())
   updatedAt               DateTime                  @updatedAt
 }
@@ -78,7 +78,7 @@ model Warehouse {
   description   String?
   warehouseType String
   stockQty      Int      @default(0)
-  Item          Item[]
+  items          Item[]
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -121,7 +121,7 @@ model Supplier {
   paymentTerms       String?
   taxID              String?
   notes              String?
-  Item               Item[]
+  item               Item[]
   AddStockAdjustment AddStockAdjustment[]
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt

@@ -10,7 +10,7 @@ export default function SalesActivityCard({ item }) {
                 transition-all duration-300"
     >
       <h4 className={`font-semibold text-3xl ${item.color}`}>{item.number}</h4>
-      <small className="text-slate-500">{item.unit}</small>
+      {/* <small className="text-slate-500">{item.unit}</small> */}
       <div className="flex items-center space-x-2 text-slate-500">
         <CheckCircle2 className="w-4 h-4" />
         <span className="uppercase text-xs">{item.title}</span>

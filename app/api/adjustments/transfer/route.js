@@ -12,6 +12,16 @@ export async function POST(request) {
       referenceNumber,
     } = await request.json();
 
+    const item = await db.item.findUnique({
+      where: {
+        id: itemId
+      }
+    })
+
+
+
+
+
     // the giving warehouse
     const givingWarehouse = await db.warehouse.findUnique({
       where: {
@@ -46,15 +56,43 @@ export async function POST(request) {
     const currentReceivingWarehouseStock = receivingWarehouse.stockQty;
     const newStockForReceivingWarehouse =
       parseInt(currentReceivingWarehouseStock) + parseInt(transferStockQty);
-    // update stock
+    
+    
+      // update stock
     const updatedReceivingWarehouse = await db.warehouse.update({
       where: {
         id: receivingWarehouseId,
       },
       data: {
-        stockQty: newStockForReceivingWarehouse
+        stockQty: newStockForReceivingWarehouse,
+        // items: item
       }
     })
+
+
+    // update the item in the receiving warehouse
+    const updatedItemReceivingWarehouse = await db.item.update({
+      where: {
+        id: itemId,
+      },
+      data: {
+        warehouseId: receivingWarehouseId,
+        quantity: newStockForReceivingWarehouse
+      }
+    })
+
+
+    //update the item in both warehouses
+    // item in the giving warehouse
+
+
+
+    //item in the Receiving warehouse
+
+
+
+
+
     const adjustment = await db.transferStockAdjustment.create({
       data: {
         itemId,

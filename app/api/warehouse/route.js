@@ -33,6 +33,9 @@ export async function GET(request){
     const warehouse = await db.warehouse.findMany({
       orderBy:{
         createdAt: "desc" //latest warehouse
+      },
+      include:{
+        items: true
       }
     })
     return NextResponse.json(warehouse);
